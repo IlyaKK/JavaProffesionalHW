@@ -1,8 +1,5 @@
 package homework1;
 
-import java.io.Serializable;
-import java.util.Collections;
-
 public class MyArrayList<E> implements IArrayList<E>{
     private E[] data;
     private int currentSize;
@@ -18,7 +15,6 @@ public class MyArrayList<E> implements IArrayList<E>{
         this.size = DEFAULT_SIZE;
         this.data = (E[])new Object[DEFAULT_SIZE];
     }
-
 
     @Override
     public void add(E value) {
