@@ -1,44 +1,25 @@
 package homework2;
 
 public class Alphabet {
-    private char aChar = 'C';
+    private final Object mon = new Object();
+    private int j = 0;
+    private final char[] chars = {'A', 'B', 'C'};
 
-    public synchronized void printA() {
-        if (aChar != 'A') {
+    public void printLetter(char currentLetter) {
+        synchronized (mon) {
             try {
-                wait();
-            } catch (InterruptedException e) {
+                if (j == 3) {
+                    j = 0;
+                    mon.notifyAll();
+                } else if (currentLetter != chars[j]) {
+                    mon.wait();
+                }
+                System.out.print(chars[j]);
+                j++;
+                mon.notify();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        aChar = 'B';
-        System.out.print(aChar);
-        notify();
-    }
-
-    public synchronized void printB() {
-        if (aChar != 'B') {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        aChar = 'C';
-        System.out.print(aChar);
-        notify();
-    }
-
-    public synchronized void printC() {
-        if (aChar != 'C') {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        aChar = 'A';
-        System.out.print(aChar);
-        notify();
     }
 }
